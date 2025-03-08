@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import { store } from "../store";
 
 export const extractImportAddress = (importPath: string, filePath: string) => {
@@ -10,7 +9,6 @@ export const extractImportAddress = (importPath: string, filePath: string) => {
   }
 
   if (importPath.startsWith("../")) {
-    console.log("import local back", importPath);
     const splittedPath = importPath.split("/");
     const numberOfBacks = splittedPath.filter((item) => item === "..").length;
     const pathWithoutBacks = splittedPath
