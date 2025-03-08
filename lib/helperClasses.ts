@@ -1,3 +1,5 @@
+import type { Node } from "@babel/types";
+
 export class Export {
   constructor(
     public readonly name: string,
@@ -21,8 +23,10 @@ export class NamedImport extends Export {}
 export class ExtractResult {
   constructor(
     readonly component: Export,
-    readonly props?: Record<string, unknown>,
-  ) {}
+    readonly props?: Node,
+  ) {
+    console.log(props);
+  }
 }
 
 export class ImportDeclaration {
