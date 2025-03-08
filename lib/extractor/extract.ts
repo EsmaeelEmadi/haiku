@@ -1,9 +1,9 @@
 import type { Node, NodePath } from "@babel/traverse";
 import {
-  isObjectProperty,
-  isObjectMethod,
   type CallExpression,
   type File,
+  isObjectMethod,
+  isObjectProperty,
 } from "@babel/types";
 import { P, match } from "ts-pattern";
 import { extractArray } from "./extractArray";
