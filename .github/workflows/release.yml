@@ -44,16 +44,20 @@ jobs:
       - name: Generate changelog with git-cliff
         id: git-cliff
         uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: -vv --unreleased --tag v${{ steps.bump.outputs.next }}
+        env:
+          OUTPUT: NEW_CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+      
+      - name: Prepend changelog
         run: |
-          git-cliff -vv --unreleased --tag v${{ steps.bump.outputs.next }} > NEW_CHANGELOG.md
-          # prepend new changes, keep existing history
           if [ -f CHANGELOG.md ]; then
             echo "" >> NEW_CHANGELOG.md
             cat CHANGELOG.md >> NEW_CHANGELOG.md
           fi
           mv NEW_CHANGELOG.md CHANGELOG.md
-        env:
-          GITHUB_REPO: ${{ github.repository }}
 
       - name: Commit package.json bump
         run: |
