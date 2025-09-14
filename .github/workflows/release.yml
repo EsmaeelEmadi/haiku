@@ -44,15 +44,17 @@ jobs:
           git commit -m "chore(release): bump version to ${{ steps.bump.outputs.next }}" || echo "No changes to commit"
           git push origin HEAD:main
 
-      # --- changelog ---
       - name: Generate changelog with git-cliff
         id: git-cliff
-        uses: orhun/git-cliff-action@v4
-        with:
-          config: cliff.toml
-          args: -vv --unreleased --tag v${{ steps.bump.outputs.next }}
+        run: |
+          git-cliff -vv --unreleased --tag v${{ steps.bump.outputs.next }} > NEW_CHANGELOG.md
+          # prepend new changes, keep existing history
+          if [ -f CHANGELOG.md ]; then
+            echo "" >> NEW_CHANGELOG.md
+            cat CHANGELOG.md >> NEW_CHANGELOG.md
+          fi
+          mv NEW_CHANGELOG.md CHANGELOG.md
         env:
-          OUTPUT: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
 
       - name: Commit updated changelog
