@@ -13,6 +13,7 @@ header = """
 # https://keats.github.io/tera/docs/#introduction
 body = """
 {% if version %}\
+    ## {{ version }} 
     **{{ timestamp | date(format="%Y-%m-%d") }}**
 {% else %}\
     ## [unreleased]
