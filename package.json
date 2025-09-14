@@ -1,0 +1,24 @@
+{
+  "name": "haiku",
+  "version": "0.0.1",
+  "description": "create storybook using ast parsing",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EsmaeelEmadi/haiku.git"
+  },
+  "keywords": [
+    "storybook",
+    "react",
+    "typescript"
+  ],
+  "author": "emad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EsmaeelEmadi/haiku/issues"
+  },
+  "homepage": "https://github.com/EsmaeelEmadi/haiku#readme"
+}
