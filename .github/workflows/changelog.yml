@@ -1,3 +1,7 @@
+name: changelog and release
+
+on: [ push, pull_request ]
+ 
 jobs:
   changelog:
     name: Generate changelog
