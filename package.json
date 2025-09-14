@@ -4,9 +4,10 @@
   "description": "create storybook using ast parsing",
   "main": "src/index.ts",
   "scripts": {
-		"format": "npx @biomejs/biome format --write .",
-		"lint": "npx @biomejs/biome lint --write .",
-		"check": "npx @biomejs/biome check --write ."
+    "prepare": "npx lefthook install",
+    "format": "npx @biomejs/biome format --write .",
+    "lint": "npx @biomejs/biome lint --write .",
+    "check": "npx @biomejs/biome check --write ."
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/EsmaeelEmadi/haiku#readme",
   "devDependencies": {
-    "@biomejs/biome": "2.2.4"
+    "@biomejs/biome": "2.2.4",
+    "lefthook": "^1.13.0"
   }
 }
