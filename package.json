@@ -1,6 +1,6 @@
 {
   "name": "haiku",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "create storybook using ast parsing",
   "main": "src/index.ts",
   "scripts": {
