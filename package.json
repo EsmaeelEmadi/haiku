@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/EsmaeelEmadi/haiku/issues"
   },
-  "homepage": "https://github.com/EsmaeelEmadi/haiku#readme"
+  "homepage": "https://github.com/EsmaeelEmadi/haiku#readme",
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4"
+  }
 }
