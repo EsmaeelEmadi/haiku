@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Version, changelog & release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # --- bump version in package.json ---
+      - name: Determine next version
+        id: bump
+        run: |
+          # read current version
+          CURRENT=$(jq -r '.version' package.json)
+
+          # bump patch by default, can replace with commit-based logic
+          IFS='.' read -r major minor patch <<< "$CURRENT"
+          NEXT="$major.$minor.$((patch + 1))"
+
+          echo "next=$NEXT" >> $GITHUB_OUTPUT
+
+          # update package.json
+          jq ".version = \"$NEXT\"" package.json > package.tmp && mv package.tmp package.json
+
+      - name: Generate changelog with git-cliff
+        id: git-cliff
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: -vv --unreleased --tag v${{ steps.bump.outputs.next }}
+        env:
+          OUTPUT: NEW_CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+      
+      - name: Prepend changelog
+        run: |
+          if [ -f CHANGELOG.md ]; then
+            echo "" >> NEW_CHANGELOG.md
+            cat CHANGELOG.md >> NEW_CHANGELOG.md
+          fi
+          mv NEW_CHANGELOG.md CHANGELOG.md
+
+      - name: Commit package.json bump
+        run: |
+          git add package.json
+          git commit -m "chore(release): bump version to ${{ steps.bump.outputs.next }}" || echo "No changes to commit"
+          git push origin HEAD:main
+
+
+      - name: Commit updated changelog
+        run: |
+          git add CHANGELOG.md
+          git commit -m "chore(release): update changelog for v${{ steps.bump.outputs.next }}" || echo "No changes to commit"
+          git push origin HEAD:main
+
+      # --- tag & release ---
+      - name: Create git tag
+        run: |
+          git tag -a "v${{ steps.bump.outputs.next }}" -m "Release v${{ steps.bump.outputs.next }}"
+          git push origin "v${{ steps.bump.outputs.next }}"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.bump.outputs.next }}
+          body: ${{ steps.git-cliff.outputs.content }}
+          files: |
+            binary_release.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
