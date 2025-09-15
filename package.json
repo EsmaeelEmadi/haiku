@@ -1,31 +1,52 @@
 {
-  "name": "haiku",
-  "version": "0.0.2",
-  "description": "create storybook using ast parsing",
-  "main": "src/index.ts",
-  "scripts": {
-    "prepare": "npx lefthook install",
-    "format": "npx @biomejs/biome format --write .",
-    "lint": "npx @biomejs/biome lint --write .",
-    "check": "npx @biomejs/biome check --write ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EsmaeelEmadi/haiku.git"
-  },
-  "keywords": [
-    "storybook",
-    "react",
-    "typescript"
-  ],
-  "author": "emad",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/EsmaeelEmadi/haiku/issues"
-  },
-  "homepage": "https://github.com/EsmaeelEmadi/haiku#readme",
-  "devDependencies": {
-    "@biomejs/biome": "2.2.4",
-    "lefthook": "^1.13.0"
-  }
+	"name": "haiku",
+	"version": "0.0.2",
+	"description": "create storybook using ast parsing",
+	"type": "module",
+	"main": "src/index.ts",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist/",
+		"README.md",
+		"LICENSE"
+	],
+	"bin": {
+		"haiku": "./dist/index.js"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsup",
+		"prepare": "npx lefthook install",
+		"format": "npx @biomejs/biome format --write .",
+		"lint": "npx @biomejs/biome lint --write .",
+		"check": "npx @biomejs/biome check --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/EsmaeelEmadi/haiku.git"
+	},
+	"keywords": [
+		"storybook",
+		"react",
+		"typescript"
+	],
+	"author": "emad",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/EsmaeelEmadi/haiku/issues"
+	},
+	"homepage": "https://github.com/EsmaeelEmadi/haiku#readme",
+	"devDependencies": {
+		"@biomejs/biome": "2.2.4",
+		"@types/node": "^24.4.0",
+		"lefthook": "^1.13.0",
+		"tsup": "^8.5.0",
+		"typescript": "^5.9.2"
+	}
 }
