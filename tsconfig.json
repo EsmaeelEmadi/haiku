@@ -23,7 +23,5 @@
 		"outDir": "dist",
 		"esModuleInterop": true,
 		"resolveJsonModule": true
-	},
-	"include": ["backup/lib/index.ts"],
-	"exclude": ["node_modules", "dist"]
+	}
 }
