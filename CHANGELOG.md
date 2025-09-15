@@ -1,4 +1,14 @@
 
+## v0.0.4
+**2025-09-15**
+
+### ⚙️ Miscellaneous Tasks
+
+- *(config)* Remove backup file from tsconfig include
+
+
+
+
 ## v0.0.3
 **2025-09-15**
 
