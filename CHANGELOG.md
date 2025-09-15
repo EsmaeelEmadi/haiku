@@ -1,4 +1,20 @@
 
+## v0.0.3
+**2025-09-15**
+
+### 🚀 Features
+
+- *(core)* Add initial project setup with hello world
+
+### ⚙️ Miscellaneous Tasks
+
+- *(config)* Add TypeScript configuration
+- *(build)* Add tsup configuration for esm bundle
+- *(build)* Add build configuration and package exports
+
+
+
+
 ## v0.0.2
 **2025-09-15**
 
